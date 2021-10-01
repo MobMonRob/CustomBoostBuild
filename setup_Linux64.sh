@@ -91,12 +91,18 @@ link_so() {
 	rm -rdf "$fullLocalTarget"/lib*
 	mkdir -p "$fullLocalTarget"
 
+	# Libs:
+	#-licuuc -licudata -licui18n -lz
+	# Found in
+	#sudo apt install libicu-dev zlib1g-dev
+	# Only needed for some boost libs
+
 	g++ -shared \
 	-O3 -flto  \
 	-Wl,-Bstatic -Wl,--start-group -Wl,--whole-archive \
 	-L"$boostLibDir" $boostLibs \
 	-Wl,--no-whole-archive \
-	-pthread -licuuc -licudata -licui18n -lz \
+	-pthread \
 	-Wl,--end-group -Wl,-Bdynamic \
 	-o "$fullLocalTarget/libboost.so" \
 	-Wl,--as-needed -Wl,--no-undefined -Wl,--no-allow-shlib-undefined

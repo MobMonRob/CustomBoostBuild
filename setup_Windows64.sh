@@ -78,19 +78,19 @@ build_boost() {
 
 
 link_so() {
-	rm -f $boostLibDir/*test*.a
+	rm -f "$boostLibDir"/*test*.a
 
 	#Needs a user defined cpp_main function
-	rm -f $boostLibDir/libboost_prg_exec_monitor*.a
+	rm -f "$boostLibDir"/libboost_prg_exec_monitor*.a
 
 	#ToDo: Fix boost python lib runtime dependency
-	rm -f $boostLibDir/*python*.a
+	rm -f "$boostLibDir"/*python*.a
 
 	#Erratic  error - windows only
-	rm -f $boostLibDir/*log*.a
+	rm -f "$boostLibDir"/*log*.a
 
 	#Erratic  error - windows + posix only
-	rm -f $boostLibDir/*wave*.a
+	rm -f "$boostLibDir"/*wave*.a
 
 	local -r boostLibs=$(find "$boostLibDir" -maxdepth 1 -mindepth 1 -type f -printf '-l:%f ')
 
