@@ -54,9 +54,10 @@ build_boost() {
 
 	rm -rdf "$stageDir"
 
-	local -r compilerArgs="-fPIC -flto -std=c++14 -w -O3"
+	#-flto
+	local -r compilerArgs="-fPIC -std=c++14 -w -O3"
 
-	local -r boostLibsToBuild="--with-thread"
+	local -r boostLibsToBuild="--with-thread --with-date_time"
 
 	#--jobs="$((3*$(nproc)))"
 	#Debugging: --jobs=1
@@ -97,8 +98,9 @@ link_so() {
 	#sudo apt install libicu-dev zlib1g-dev
 	# Only needed for some boost libs
 
+	#-flto
 	g++ -shared \
-	-O3 -flto  \
+	-O3  \
 	-Wl,-Bstatic -Wl,--start-group -Wl,--whole-archive \
 	-L"$boostLibDir" $boostLibs \
 	-Wl,--no-whole-archive \

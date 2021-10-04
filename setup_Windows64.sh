@@ -53,9 +53,10 @@ build_boost() {
 
 	rm -rdf "$stageDir"
 
-	local -r compilerArgs="-fPIC -flto -std=c++14 -w -O3"
+	#-flto
+	local -r compilerArgs="-fPIC -std=c++14 -w -O3"
 
-	local -r boostLibsToBuild="--with-thread"
+	local -r boostLibsToBuild="--with-thread --with-date_time"
 
 	#Boost library "Context" wont compile with mingw and is therefore excluded.
 	#See: http://boost.2283326.n4.nabble.com/build-bootstrap-sh-is-still-broken-td4653391i20.html
@@ -99,8 +100,9 @@ link_so() {
 	rm -rdf $fullLocalTarget/lib*
 	mkdir -p "$fullLocalTarget"
 
+	#-flto
 	x86_64-w64-mingw32-g++-posix -shared \
-	-O3 -flto  \
+	-O3 \
 	-Wl,-Bstatic -Wl,--start-group -Wl,--whole-archive \
 	-L"$boostLibDir" $boostLibs \
 	-Wl,--no-whole-archive -Wl,--end-group -Wl,-Bdynamic \
