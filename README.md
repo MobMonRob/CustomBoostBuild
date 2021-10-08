@@ -23,3 +23,7 @@ Change the `standardPlatform` variable in the `_platform_config.sh` file.
 **In a script** \
 Use `changePlatformTo "$platformLinux"` or `changePlatformTo "$platformWindows"` and then run `_ensure_dependency-recursive_Multiarch.sh`.
 
+
+## Caution
+Don't use the gcc `-flto` flag for cross-compilation of a project that includes boost. This can lead to seemingly not connected and therefore difficult to debug errors.
+
